@@ -1,3 +1,7 @@
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
 
 " Don't try to be vi compatible
 set nocompatible
@@ -6,6 +10,9 @@ set nocompatible
 filetype off
 
 " TODO: Load plugins here (pathogen or vundle)
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 " Turn on syntax highlighting
 syntax on

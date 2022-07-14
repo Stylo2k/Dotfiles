@@ -1,7 +1,7 @@
 ## Path section
 # Set $PATH if ~/.local/bin exist
 if [ -d "$HOME/.local/bin" ]; then
-    export PATH=$HOME/.local/bin:$PATH
+  export PATH=$HOME/bin:/usr/local/bin:$PATH
 fi
 
 eval "$(starship init zsh)"
@@ -249,6 +249,8 @@ alias jctl="journalctl -p 3 -xb"
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
+# alias for lfrun
+alias lf='lfrun'
 
 
 ## Run neofetch
@@ -275,3 +277,16 @@ export NVM_DIR="$HOME/.nvm"
 
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH
+
+export PATH=$PATH:/usr/local/go/bin
+
+#eval $(ssh-agent)
+#ssh-add ~/.ssh/id_ed25519
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
+Environment=PATH=/usr/lib/jvm/java-11-openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$PATH
+
+Environment=JAVA_HOME=/usr/lib/jvm/java-11-openjdk

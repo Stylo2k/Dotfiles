@@ -1,3 +1,7 @@
+
+export PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
+
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -57,3 +61,13 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 . "$HOME/.cargo/env"
+
+gpgconf --launch gpg-agent
+eval "$(ssh-agent -s)"
+gpgconf --create-socketdir
+ssh-add ~/.ssh/id_ed25519
+
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
