@@ -1,0 +1,82 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export PATH=/opt/homebrew/bin:$PATH
+# source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# plugins : https://youtu.be/wHnMd8uz6j0
+source /usr/local/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/local/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+
+#! make sure this happens after sourcing the plugins
+# binds the up and down keys to search using the substring
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line 
+
+
+## Useful aliases
+# Replace ls with exa
+alias ls='exa -l --color=always --group-directories-first --icons' # preferred listing
+alias la='exa -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='exa -l --color=always --group-directories-first --icons'  # long format
+alias lt='exa -aT --color=always --group-directories-first --icons' # tree listing
+alias l.="exa -a | egrep '^\.'"   
+
+function take(){
+	mkdir -p $1;
+	cd $1;
+}
+alias ..='cd ..'
+
+# neo fetch
+#neofetch
+
+
+# changing the word recognition part so it stops at '/' or '-' etc..
+# autoload -U select-word-style
+# select-word-style b
+# WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+WORDCHARS=''
+
+# Bindings for the CTRL+DEL & CTRL+BACKSPACE
+# use read to read the keys
+bindkey "^[[3;5~" kill-word
+bindkey "^H" backward-kill-word
+bindkey "^Z" undo
+
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+
+# this is a workaround for openssh and macos 
+# related : https://stackoverflow.com/questions/68573454/having-difficulty-to-get-ssh-with-a-yubikey-working-with-macos-monterey/69416173#69416173
+# there is a gh issue but I lost it, lol
+export PATH=$(brew --prefix openssh)/bin:$PATH
+
+
+# starship
+eval "$(starship init zsh)"
+
+# git aliases
+alias gc='git checkout '
+alias gcs='git commit -S -m '
+alias gp='git push'
+function gb() {
+ git checkout -b $1;
+ git push -u origin $1;
+}
